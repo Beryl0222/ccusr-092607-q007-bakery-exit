@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "连锁烘焙退场义务清算台领域事件",
+  "type": "object",
+  "required": [
+    "event_id",
+    "event_type",
+    "aggregate_type",
+    "aggregate_id",
+    "occurred_at",
+    "version",
+    "payload"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "EXIT_ANNOUNCED",
+        "OBLIGATION_FROZEN",
+        "ORDER_TRANSFERRED",
+        "ENTITLEMENT_SETTLED",
+        "HANDOVER_CLOSED"
+      ]
+    },
+    "aggregate_type": {
+      "type": "string",
+      "enum": [
+        "store_period",
+        "customer_entitlement",
+        "inventory_position",
+        "exit_plan"
+      ]
+    },
+    "aggregate_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "payload": {
+      "type": "object"
+    }
+  },
+  "payload_required_by_event": {
+    "OBLIGATION_FROZEN": [
+      "cutoff_at",
+      "snapshot_hash"
+    ],
+    "ORDER_TRANSFERRED": [
+      "successor_ref",
+      "order_scope"
+    ],
+    "ENTITLEMENT_SETTLED": [
+      "source_ref",
+      "amount"
+    ]
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,5 @@
+[project]
+name = "bakery-exit"
+version = "0.1.0"
+description = "连锁烘焙退场义务清算台领域契约"
+requires-python = ">=3.11"

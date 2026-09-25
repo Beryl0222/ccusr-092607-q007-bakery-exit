@@ -1,0 +1,9 @@
+{
+  "event_id": "092601-007-sample-001",
+  "event_type": "EXIT_ANNOUNCED",
+  "aggregate_type": "store_period",
+  "aggregate_id": "bakery_exit-001",
+  "occurred_at": "2026-09-25T10:00:00+08:00",
+  "version": 1,
+  "payload": {}
+}
