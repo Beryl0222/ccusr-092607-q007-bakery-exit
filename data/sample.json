@@ -5,5 +5,9 @@
   "aggregate_id": "bakery_exit-001",
   "occurred_at": "2026-09-25T10:00:00+08:00",
   "version": 1,
-  "payload": {}
+  "payload": {
+    "store_id": "S-001",
+    "decided_at": "2026-09-25T10:00:00+08:00",
+    "effective_at": "2026-10-10T22:00:00+08:00"
+  }
 }

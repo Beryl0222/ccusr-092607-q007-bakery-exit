@@ -14,15 +14,38 @@
   "properties": {
     "event_id": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "description": "业务回执编号；相同编号重放必须幂等，编号相同但内容冲突须暂停"
     },
     "event_type": {
       "type": "string",
       "enum": [
+        "STORE_PERIOD_OPENED",
         "EXIT_ANNOUNCED",
         "OBLIGATION_FROZEN",
+        "BATCH_DELIVERED",
+        "FRESH_LOSS_REPORTED",
+        "FRESH_LOSS_VERIFIED",
+        "FRESH_LOSS_DECIDED",
+        "ORDER_REGISTERED",
+        "ORDER_FULFILLED",
         "ORDER_TRANSFERRED",
         "ENTITLEMENT_SETTLED",
+        "ENTITLEMENT_RESTORED",
+        "REFUND_ISSUED",
+        "BALANCE_TRANSFERRED",
+        "STORED_BALANCE_POSTED",
+        "SUCCESSOR_PLANNED",
+        "INDEPENDENT_CONFIRMATION",
+        "CLEARING_SUSPENDED",
+        "CLEARING_RESUMED",
+        "LEASE_EQUIPMENT_RECORDED",
+        "LEASE_CLOSED",
+        "STAFF_HANDOVER_RECORDED",
+        "STAFF_HANDOVER_CONFIRMED",
+        "SUPPLIER_CONSIGNMENT_RECORDED",
+        "SUPPLIER_SETTLED",
+        "STAGE_ADVANCED",
         "HANDOVER_CLOSED"
       ]
     },
@@ -32,7 +55,9 @@
         "store_period",
         "customer_entitlement",
         "inventory_position",
-        "exit_plan"
+        "exit_plan",
+        "supplier_consignment",
+        "handover_task"
       ]
     },
     "aggregate_id": {
@@ -51,18 +76,188 @@
       "type": "object"
     }
   },
+  "aggregate_by_event": {
+    "STORE_PERIOD_OPENED": "store_period",
+    "EXIT_ANNOUNCED": "store_period",
+    "OBLIGATION_FROZEN": "store_period",
+    "BATCH_DELIVERED": "inventory_position",
+    "FRESH_LOSS_REPORTED": "inventory_position",
+    "FRESH_LOSS_VERIFIED": "inventory_position",
+    "FRESH_LOSS_DECIDED": "inventory_position",
+    "ORDER_REGISTERED": "customer_entitlement",
+    "ORDER_FULFILLED": "customer_entitlement",
+    "ORDER_TRANSFERRED": "customer_entitlement",
+    "ENTITLEMENT_SETTLED": "customer_entitlement",
+    "ENTITLEMENT_RESTORED": "customer_entitlement",
+    "REFUND_ISSUED": "customer_entitlement",
+    "BALANCE_TRANSFERRED": "customer_entitlement",
+    "STORED_BALANCE_POSTED": "customer_entitlement",
+    "SUCCESSOR_PLANNED": "exit_plan",
+    "INDEPENDENT_CONFIRMATION": "exit_plan",
+    "CLEARING_SUSPENDED": "exit_plan",
+    "CLEARING_RESUMED": "exit_plan",
+    "LEASE_EQUIPMENT_RECORDED": "handover_task",
+    "LEASE_CLOSED": "handover_task",
+    "STAFF_HANDOVER_RECORDED": "handover_task",
+    "STAFF_HANDOVER_CONFIRMED": "handover_task",
+    "SUPPLIER_CONSIGNMENT_RECORDED": "supplier_consignment",
+    "SUPPLIER_SETTLED": "supplier_consignment",
+    "STAGE_ADVANCED": "exit_plan",
+    "HANDOVER_CLOSED": "exit_plan"
+  },
   "payload_required_by_event": {
+    "STORE_PERIOD_OPENED": [
+      "store_id",
+      "opened_at"
+    ],
+    "EXIT_ANNOUNCED": [
+      "store_id",
+      "decided_at",
+      "effective_at"
+    ],
     "OBLIGATION_FROZEN": [
       "cutoff_at",
       "snapshot_hash"
     ],
+    "BATCH_DELIVERED": [
+      "store_id",
+      "batch_id",
+      "sku",
+      "quantity",
+      "source_kind"
+    ],
+    "FRESH_LOSS_REPORTED": [
+      "store_id",
+      "batch_id",
+      "loss_id",
+      "quantity",
+      "reporter_id"
+    ],
+    "FRESH_LOSS_VERIFIED": [
+      "store_id",
+      "batch_id",
+      "loss_id",
+      "verified_quantity",
+      "verifier_id"
+    ],
+    "FRESH_LOSS_DECIDED": [
+      "store_id",
+      "batch_id",
+      "loss_id",
+      "decision",
+      "approver_id"
+    ],
+    "ORDER_REGISTERED": [
+      "store_id",
+      "order_no",
+      "source_kind",
+      "entitlement_ref",
+      "amount"
+    ],
+    "ORDER_FULFILLED": [
+      "store_id",
+      "order_no"
+    ],
     "ORDER_TRANSFERRED": [
+      "store_id",
+      "order_no",
       "successor_ref",
       "order_scope"
     ],
     "ENTITLEMENT_SETTLED": [
       "source_ref",
       "amount"
+    ],
+    "ENTITLEMENT_RESTORED": [
+      "store_id",
+      "order_no",
+      "source_kind",
+      "restore_kind",
+      "amount"
+    ],
+    "REFUND_ISSUED": [
+      "store_id",
+      "order_no",
+      "amount",
+      "receipt_no"
+    ],
+    "BALANCE_TRANSFERRED": [
+      "store_id",
+      "customer_ref",
+      "successor_ref",
+      "amount"
+    ],
+    "STORED_BALANCE_POSTED": [
+      "store_id",
+      "customer_ref",
+      "delta",
+      "reason",
+      "receipt_no"
+    ],
+    "SUCCESSOR_PLANNED": [
+      "store_id",
+      "successor_ref",
+      "scope",
+      "planned_at"
+    ],
+    "INDEPENDENT_CONFIRMATION": [
+      "store_id",
+      "party",
+      "confirmer_id",
+      "confirmed"
+    ],
+    "CLEARING_SUSPENDED": [
+      "store_id",
+      "receipt_no",
+      "reason"
+    ],
+    "CLEARING_RESUMED": [
+      "store_id",
+      "receipt_no",
+      "resolution",
+      "resolver_id"
+    ],
+    "LEASE_EQUIPMENT_RECORDED": [
+      "store_id",
+      "equipment_no",
+      "lessor_ref"
+    ],
+    "LEASE_CLOSED": [
+      "store_id",
+      "equipment_no"
+    ],
+    "STAFF_HANDOVER_RECORDED": [
+      "store_id",
+      "staff_id",
+      "items"
+    ],
+    "STAFF_HANDOVER_CONFIRMED": [
+      "store_id",
+      "staff_id",
+      "confirmer_id"
+    ],
+    "SUPPLIER_CONSIGNMENT_RECORDED": [
+      "store_id",
+      "supplier_ref",
+      "batch_id",
+      "quantity",
+      "amount"
+    ],
+    "SUPPLIER_SETTLED": [
+      "store_id",
+      "supplier_ref",
+      "amount",
+      "receipt_no"
+    ],
+    "STAGE_ADVANCED": [
+      "store_id",
+      "from_stage",
+      "to_stage",
+      "advanced_at"
+    ],
+    "HANDOVER_CLOSED": [
+      "store_id",
+      "closed_at"
     ]
   },
   "additionalProperties": false
