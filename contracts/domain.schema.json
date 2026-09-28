@@ -21,17 +21,75 @@
       "enum": [
         "EXIT_ANNOUNCED",
         "OBLIGATION_FROZEN",
+        "PRODUCTION_HALTED",
+        "CASE_SUSPENDED",
+        "CASE_RESUMED",
+        "CASE_CLOSED",
+
+        "ORDER_REGISTERED",
+        "ORDER_FULFILLED",
+        "ORDER_MARKED_UNFULFILLABLE",
         "ORDER_TRANSFERRED",
+        "ENTITLEMENT_RESTORED",
         "ENTITLEMENT_SETTLED",
-        "HANDOVER_CLOSED"
+
+        "BALANCE_LEDGER_OPENED",
+        "BALANCE_HELD",
+        "BALANCE_HOLD_RELEASED",
+        "BALANCE_CONSUMED",
+        "BALANCE_TRANSFERRED",
+        "BALANCE_REFUNDED",
+
+        "VOUCHER_REGISTERED",
+        "VOUCHER_REDEEMED",
+        "VOUCHER_RESTORED",
+        "VOUCHER_TRANSFERRED",
+
+        "BATCH_DELIVERED",
+        "ON_SITE_COUNTED",
+        "LOSS_REQUESTED",
+        "LOSS_APPROVED",
+        "BATCH_WRITTEN_OFF",
+        "BATCH_TRANSFERRED",
+        "CONSIGNMENT_RETURNED",
+
+        "SUPPLIER_LEDGER_OPENED",
+        "CONSIGNMENT_RECEIVED",
+        "SETTLEMENT_PROPOSED",
+        "SETTLEMENT_CONFIRMED",
+        "SETTLEMENT_PAID",
+
+        "LEASE_REGISTERED",
+        "LEASE_TERMINATED",
+        "EQUIPMENT_REMOVED",
+        "DEPOSIT_SETTLED",
+
+        "HANDOVER_ASSIGNED",
+        "HANDOVER_ACKNOWLEDGED",
+        "HANDOVER_CLOSED",
+
+        "PLAN_PROPOSED",
+        "FUNDS_CONFIRMED",
+        "SUCCESSOR_CONFIRMED",
+        "PLAN_COMPLETED",
+
+        "STAGE_SCHEDULED",
+        "STAGE_ADVANCED",
+        "RECOVERY_RESUMED"
       ]
     },
     "aggregate_type": {
       "type": "string",
       "enum": [
         "store_period",
+        "scheduler",
+        "customer_order",
         "customer_entitlement",
+        "voucher",
         "inventory_position",
+        "supplier_account",
+        "equipment_lease",
+        "handover_task",
         "exit_plan"
       ]
     },
@@ -47,23 +105,71 @@
       "type": "integer",
       "minimum": 1
     },
+    "command_id": {
+      "type": "string",
+      "minLength": 1
+    },
     "payload": {
       "type": "object"
     }
   },
   "payload_required_by_event": {
-    "OBLIGATION_FROZEN": [
-      "cutoff_at",
-      "snapshot_hash"
-    ],
-    "ORDER_TRANSFERRED": [
-      "successor_ref",
-      "order_scope"
-    ],
-    "ENTITLEMENT_SETTLED": [
-      "source_ref",
-      "amount"
-    ]
+    "OBLIGATION_FROZEN": ["cutoff_at", "snapshot_hash"],
+    "PRODUCTION_HALTED": ["halted_at"],
+    "CASE_SUSPENDED": ["reason", "conflict_refs"],
+    "CASE_RESUMED": ["resumed_by", "resumed_at"],
+    "CASE_CLOSED": ["closed_at"],
+
+    "ORDER_REGISTERED": ["case_ref", "order_ref", "customer_id", "source", "scheduled_pickup_at", "items"],
+    "ORDER_FULFILLED": ["order_ref", "fulfilled_at"],
+    "ORDER_MARKED_UNFULFILLABLE": ["order_ref", "reason", "decided_at"],
+    "ORDER_TRANSFERRED": ["successor_ref", "order_scope"],
+    "ENTITLEMENT_RESTORED": ["order_ref", "source", "restoration"],
+    "ENTITLEMENT_SETTLED": ["source_ref", "amount"],
+
+    "BALANCE_LEDGER_OPENED": ["case_ref", "customer_id", "amount", "currency"],
+    "BALANCE_HELD": ["hold_ref", "order_ref", "amount"],
+    "BALANCE_HOLD_RELEASED": ["hold_ref"],
+    "BALANCE_CONSUMED": ["case_ref", "consume_ref", "order_ref", "amount", "consumed_at"],
+    "BALANCE_TRANSFERRED": ["case_ref", "successor_store_code", "amount", "reason_ref"],
+    "BALANCE_REFUNDED": ["case_ref", "amount", "reason_ref"],
+
+    "VOUCHER_REGISTERED": ["case_ref", "voucher_code", "source", "face_value", "currency"],
+    "VOUCHER_REDEEMED": ["voucher_code", "store_code", "redemption_ref", "redeemed_at"],
+    "VOUCHER_RESTORED": ["voucher_code", "source", "reason"],
+    "VOUCHER_TRANSFERRED": ["voucher_code", "successor_store_code"],
+
+    "BATCH_DELIVERED": ["case_ref", "batch_ref", "sku", "quantity", "origin"],
+    "ON_SITE_COUNTED": ["batch_ref", "count_ref", "counted_by", "quantity", "counted_at"],
+    "LOSS_REQUESTED": ["batch_ref", "request_ref", "requested_by", "quantity", "reason"],
+    "LOSS_APPROVED": ["batch_ref", "request_ref", "approved_by", "approved_at"],
+    "BATCH_WRITTEN_OFF": ["batch_ref", "quantity", "reason_ref"],
+    "BATCH_TRANSFERRED": ["case_ref", "batch_ref", "successor_store_code", "quantity"],
+    "CONSIGNMENT_RETURNED": ["case_ref", "supplier_id", "batch_ref", "quantity"],
+
+    "SUPPLIER_LEDGER_OPENED": ["case_ref", "supplier_id", "supplier_name"],
+    "CONSIGNMENT_RECEIVED": ["case_ref", "supplier_id", "batch_ref", "sku", "quantity", "unit_amount"],
+    "SETTLEMENT_PROPOSED": ["case_ref", "supplier_id", "settlement_ref", "amount", "proposed_by"],
+    "SETTLEMENT_CONFIRMED": ["case_ref", "supplier_id", "settlement_ref", "confirmed_by", "confirmed_at"],
+    "SETTLEMENT_PAID": ["case_ref", "supplier_id", "settlement_ref", "paid_at"],
+
+    "LEASE_REGISTERED": ["case_ref", "equipment_ref", "lessor", "lease_end_at"],
+    "LEASE_TERMINATED": ["case_ref", "equipment_ref", "terminated_at", "terminated_by"],
+    "EQUIPMENT_REMOVED": ["case_ref", "equipment_ref", "removed_at", "witness_by"],
+    "DEPOSIT_SETTLED": ["case_ref", "equipment_ref", "amount", "settled_at"],
+
+    "HANDOVER_ASSIGNED": ["case_ref", "task_ref", "category", "title", "owner_role", "visibility", "due_at"],
+    "HANDOVER_ACKNOWLEDGED": ["task_ref", "acknowledged_by", "acknowledged_at"],
+    "HANDOVER_CLOSED": ["task_ref", "closed_at", "closed_by"],
+
+    "PLAN_PROPOSED": ["case_ref", "plan_ref", "successor_store_code", "order_scope", "proposed_by"],
+    "FUNDS_CONFIRMED": ["case_ref", "plan_ref", "confirmed_by", "confirmed_at"],
+    "SUCCESSOR_CONFIRMED": ["case_ref", "plan_ref", "successor_ref", "confirmed_by", "confirmed_at"],
+    "PLAN_COMPLETED": ["case_ref", "plan_ref", "completed_at"],
+
+    "STAGE_SCHEDULED": ["case_ref", "stage", "deadline_at"],
+    "STAGE_ADVANCED": ["case_ref", "stage", "advanced_at"],
+    "RECOVERY_RESUMED": ["case_ref", "resumed_at", "stage"]
   },
   "additionalProperties": false
 }

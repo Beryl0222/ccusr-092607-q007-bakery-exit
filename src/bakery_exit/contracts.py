@@ -30,7 +30,7 @@ def validate_event(payload: Any, schema: Mapping[str, Any]) -> list[ContractIssu
     for field in schema.get("required", []):
         if field not in payload:
             issues.append(ContractIssue(str(field), "required", "缺少必填字段"))
-    for field in ("event_id", "event_type", "aggregate_type", "aggregate_id"):
+    for field in ("event_id", "event_type", "aggregate_type", "aggregate_id", "command_id"):
         if field in payload and (not isinstance(payload[field], str) or not payload[field].strip()):
             issues.append(ContractIssue(field, "non_empty_string", "字段必须是非空字符串"))
     version = payload.get("version")

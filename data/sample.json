@@ -1,9 +1,773 @@
-{
-  "event_id": "092601-007-sample-001",
-  "event_type": "EXIT_ANNOUNCED",
-  "aggregate_type": "store_period",
-  "aggregate_id": "bakery_exit-001",
-  "occurred_at": "2026-09-25T10:00:00+08:00",
-  "version": 1,
-  "payload": {}
-}
+[
+  {
+    "event_id": "evt-d04806b9ad254280abca6d1ec0f71b5b",
+    "event_type": "BALANCE_LEDGER_OPENED",
+    "aggregate_type": "customer_entitlement",
+    "aggregate_id": "ledger-A",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 1,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "customer_id": "cust-A",
+      "amount": 200.0,
+      "currency": "CNY"
+    }
+  },
+  {
+    "event_id": "evt-28376a2a7bea4a1f9c4b688e61363e3b",
+    "event_type": "BALANCE_HELD",
+    "aggregate_type": "customer_entitlement",
+    "aggregate_id": "ledger-A",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 2,
+    "payload": {
+      "hold_ref": "hold-1",
+      "order_ref": "order-1",
+      "amount": 68.0,
+      "held_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-536d5f4dcb484075a5bacba93d395c10",
+    "event_type": "VOUCHER_REGISTERED",
+    "aggregate_type": "voucher",
+    "aggregate_id": "vouch-G",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 1,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "voucher_code": "GB-001",
+      "source": "groupbuy",
+      "face_value": 88.0,
+      "currency": "CNY"
+    }
+  },
+  {
+    "event_id": "evt-9337fa36460342799632f3a3c9102699",
+    "event_type": "SUPPLIER_LEDGER_OPENED",
+    "aggregate_type": "supplier_account",
+    "aggregate_id": "supplier-F",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 1,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "supplier_id": "supplier-F",
+      "supplier_name": "面粉厂"
+    }
+  },
+  {
+    "event_id": "evt-81ffb83f19f54877b413084298d26717",
+    "event_type": "BATCH_DELIVERED",
+    "aggregate_type": "inventory_position",
+    "aggregate_id": "batch-F1",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 1,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "batch_ref": "batch-F1",
+      "sku": "高筋粉",
+      "quantity": 100,
+      "origin": "consignment",
+      "delivered_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-9af08a7940064a5299a836d05bfb92c4",
+    "event_type": "CONSIGNMENT_RECEIVED",
+    "aggregate_type": "supplier_account",
+    "aggregate_id": "supplier-F",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 2,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "supplier_id": "supplier-F",
+      "batch_ref": "batch-F1",
+      "sku": "高筋粉",
+      "quantity": 100,
+      "unit_amount": 4.5
+    }
+  },
+  {
+    "event_id": "evt-c280c3fd20ca4bb7b499e3e19578c1fc",
+    "event_type": "BATCH_DELIVERED",
+    "aggregate_type": "inventory_position",
+    "aggregate_id": "batch-C1",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 1,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "batch_ref": "batch-C1",
+      "sku": "鲜吐司",
+      "quantity": 50,
+      "origin": "central_factory",
+      "delivered_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-7ab501a1a9fe40f5be82d172e772c26b",
+    "event_type": "LEASE_REGISTERED",
+    "aggregate_type": "equipment_lease",
+    "aggregate_id": "equip-O1",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 1,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "equipment_ref": "equip-O1",
+      "lessor": "烤箱租赁公司",
+      "lease_end_at": "2026-10-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-4595d6e8e83c499ab0251b73538af23e",
+    "event_type": "ORDER_REGISTERED",
+    "aggregate_type": "customer_order",
+    "aggregate_id": "order-1",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 1,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "order_ref": "order-1",
+      "customer_id": "cust-A",
+      "source": "stored_value",
+      "scheduled_pickup_at": "2026-09-04T09:00:00+0800",
+      "items": [
+        {
+          "sku": "生日蛋糕",
+          "qty": 1
+        }
+      ],
+      "payment": {
+        "method": "stored_value",
+        "ledger_id": "ledger-A",
+        "amount": 68.0,
+        "hold_ref": "hold-1"
+      }
+    }
+  },
+  {
+    "event_id": "evt-e382224d26dd48ff8a8229d5b2f2ed10",
+    "event_type": "ORDER_REGISTERED",
+    "aggregate_type": "customer_order",
+    "aggregate_id": "order-2",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 1,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "order_ref": "order-2",
+      "customer_id": "cust-A",
+      "source": "groupbuy",
+      "scheduled_pickup_at": "2026-09-05T09:00:00+0800",
+      "items": [
+        {
+          "sku": "面包兑换",
+          "qty": 1
+        }
+      ],
+      "payment": {
+        "method": "groupbuy",
+        "voucher_code": "vouch-G"
+      }
+    }
+  },
+  {
+    "event_id": "evt-1ef3c9402562490388a7000a24cc0b5a",
+    "event_type": "ORDER_REGISTERED",
+    "aggregate_type": "customer_order",
+    "aggregate_id": "order-3",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 1,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "order_ref": "order-3",
+      "customer_id": "cust-B",
+      "source": "prepaid",
+      "scheduled_pickup_at": "2026-09-21T09:00:00+0800",
+      "items": [
+        {
+          "sku": "定制庆典蛋糕",
+          "qty": 1
+        }
+      ],
+      "payment": {
+        "method": "prepaid",
+        "amount": 158.0
+      }
+    }
+  },
+  {
+    "event_id": "evt-e035774879474989a8160accdc168edf",
+    "event_type": "EXIT_ANNOUNCED",
+    "aggregate_type": "store_period",
+    "aggregate_id": "case-demo-001",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 1,
+    "payload": {
+      "store_code": "BJ-001",
+      "announced_at": "2026-09-01T09:00:00+0800",
+      "effective_at": "2026-09-15T09:00:00+0800",
+      "announced_by": "hq-manager"
+    }
+  },
+  {
+    "event_id": "evt-499afe52f85e4cf8b9a208f74b3d96bc",
+    "event_type": "OBLIGATION_FROZEN",
+    "aggregate_type": "store_period",
+    "aggregate_id": "case-demo-001",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 2,
+    "payload": {
+      "cutoff_at": "2026-09-01T09:00:00+0800",
+      "snapshot_hash": "3b91b45e5a8c9ac0aa10958447fc7b0f337dd0971ed12c6d3779d3ef2eb4fc6e",
+      "snapshot": {
+        "ledgers": [
+          "ledger-A"
+        ],
+        "vouchers": [
+          "vouch-G"
+        ],
+        "batches": [
+          "batch-F1",
+          "batch-C1"
+        ],
+        "suppliers": [
+          "supplier-F"
+        ],
+        "leases": [
+          "equip-O1"
+        ],
+        "orders": [
+          "order-1",
+          "order-2",
+          "order-3"
+        ]
+      },
+      "frozen_by": "hq-audit"
+    }
+  },
+  {
+    "event_id": "evt-c8ab5f64d1fa4c6f855e416724d0c8d7",
+    "event_type": "PRODUCTION_HALTED",
+    "aggregate_type": "store_period",
+    "aggregate_id": "case-demo-001",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 3,
+    "payload": {
+      "halted_at": "2026-09-01T09:00:00+0800",
+      "halted_by": "ops"
+    }
+  },
+  {
+    "event_id": "evt-cf60c9f08be34142ba8402fae3de3c8e",
+    "event_type": "STAGE_SCHEDULED",
+    "aggregate_type": "scheduler",
+    "aggregate_id": "scheduler-case-demo-001",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 1,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "stage": "production_halt",
+      "deadline_at": "2026-09-04T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-26503c5894244bd094913452d36a0768",
+    "event_type": "STAGE_SCHEDULED",
+    "aggregate_type": "scheduler",
+    "aggregate_id": "scheduler-case-demo-001",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 2,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "stage": "pickup",
+      "deadline_at": "2026-09-05T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-383c87680a6946c7984c84ed188e7893",
+    "event_type": "STAGE_SCHEDULED",
+    "aggregate_type": "scheduler",
+    "aggregate_id": "scheduler-case-demo-001",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 3,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "stage": "refund",
+      "deadline_at": "2026-09-06T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-9ac1c51f1f684380859d94b02d7cb424",
+    "event_type": "STAGE_SCHEDULED",
+    "aggregate_type": "scheduler",
+    "aggregate_id": "scheduler-case-demo-001",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 4,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "stage": "lease",
+      "deadline_at": "2026-09-07T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-c0825c435f934ab9864cc6f209cb62bf",
+    "event_type": "STAGE_SCHEDULED",
+    "aggregate_type": "scheduler",
+    "aggregate_id": "scheduler-case-demo-001",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 5,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "stage": "settlement",
+      "deadline_at": "2026-09-08T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-943548e42b23427a8564c03ea678c0f4",
+    "event_type": "ON_SITE_COUNTED",
+    "aggregate_type": "inventory_position",
+    "aggregate_id": "batch-C1",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 2,
+    "payload": {
+      "batch_ref": "batch-C1",
+      "count_ref": "count-1",
+      "counted_by": "manager-li",
+      "quantity": 47,
+      "counted_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-39ad38e3365b450c81f0f65fd7ba5e26",
+    "event_type": "LOSS_REQUESTED",
+    "aggregate_type": "inventory_position",
+    "aggregate_id": "batch-C1",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 3,
+    "payload": {
+      "batch_ref": "batch-C1",
+      "request_ref": "loss-1",
+      "requested_by": "manager-li",
+      "quantity": 3,
+      "reason": "当日现制报损",
+      "requested_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-f6fbfb6c4bdc4c1cbed5e5e907fc2500",
+    "event_type": "LOSS_APPROVED",
+    "aggregate_type": "inventory_position",
+    "aggregate_id": "batch-C1",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 4,
+    "payload": {
+      "batch_ref": "batch-C1",
+      "request_ref": "loss-1",
+      "approved_by": "district-wang",
+      "approved_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-b755fc0249684efaa5d58ec91a07dc04",
+    "event_type": "BATCH_WRITTEN_OFF",
+    "aggregate_type": "inventory_position",
+    "aggregate_id": "batch-C1",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 5,
+    "payload": {
+      "batch_ref": "batch-C1",
+      "quantity": 3,
+      "reason_ref": "loss-1"
+    }
+  },
+  {
+    "event_id": "evt-8717f938800b4c39b50a189c16474587",
+    "event_type": "CONSIGNMENT_RETURNED",
+    "aggregate_type": "inventory_position",
+    "aggregate_id": "batch-F1",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 2,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "supplier_id": "supplier-F",
+      "batch_ref": "batch-F1",
+      "quantity": 20,
+      "returned_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-12408562f53b481bb4a4eaff013de6cb",
+    "event_type": "BALANCE_HOLD_RELEASED",
+    "aggregate_type": "customer_entitlement",
+    "aggregate_id": "ledger-A",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 3,
+    "payload": {
+      "hold_ref": "hold-1"
+    }
+  },
+  {
+    "event_id": "evt-2c25180517974c79b73d054b19e08000",
+    "event_type": "BALANCE_CONSUMED",
+    "aggregate_type": "customer_entitlement",
+    "aggregate_id": "ledger-A",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 4,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "consume_ref": "order-1",
+      "order_ref": "order-1",
+      "amount": 68.0,
+      "consumed_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-c7d7192866124c8b837f789f53d22af0",
+    "event_type": "ORDER_FULFILLED",
+    "aggregate_type": "customer_order",
+    "aggregate_id": "order-1",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 2,
+    "payload": {
+      "order_ref": "order-1",
+      "fulfilled_at": "2026-09-01T09:00:00+0800",
+      "picked_by": "cust-A"
+    }
+  },
+  {
+    "event_id": "evt-cee892078a984d4d9a99a90789326598",
+    "event_type": "VOUCHER_REDEEMED",
+    "aggregate_type": "voucher",
+    "aggregate_id": "vouch-G",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 2,
+    "payload": {
+      "voucher_code": "vouch-G",
+      "store_code": "BJ-001",
+      "redemption_ref": "order-2",
+      "redeemed_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-fb395c5d900c4f748d996855246192df",
+    "event_type": "ORDER_FULFILLED",
+    "aggregate_type": "customer_order",
+    "aggregate_id": "order-2",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 2,
+    "payload": {
+      "order_ref": "order-2",
+      "fulfilled_at": "2026-09-01T09:00:00+0800",
+      "picked_by": "cust-A"
+    }
+  },
+  {
+    "event_id": "evt-caf0517a1d4c4c7c93aa71ea03f6b108",
+    "event_type": "ORDER_MARKED_UNFULFILLABLE",
+    "aggregate_type": "customer_order",
+    "aggregate_id": "order-3",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 2,
+    "payload": {
+      "order_ref": "order-3",
+      "reason": "定制蛋糕无法制做",
+      "decided_at": "2026-09-01T09:00:00+0800",
+      "decided_by": "ops"
+    }
+  },
+  {
+    "event_id": "evt-863ebe37a8134d4ab58c1fa65e55cbbd",
+    "event_type": "ENTITLEMENT_RESTORED",
+    "aggregate_type": "customer_order",
+    "aggregate_id": "order-3",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 3,
+    "payload": {
+      "order_ref": "order-3",
+      "source": "prepaid",
+      "restoration": {
+        "type": "cash_refund",
+        "amount": 158.0
+      }
+    }
+  },
+  {
+    "event_id": "evt-f294af296c254d679b2a4812aca94663",
+    "event_type": "PLAN_PROPOSED",
+    "aggregate_type": "exit_plan",
+    "aggregate_id": "plan-1",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 1,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "plan_ref": "plan-1",
+      "successor_store_code": "BJ-009",
+      "order_scope": [],
+      "proposed_by": "planner-zhao",
+      "proposed_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-d4a881d4221a4b29b75b2ae904924792",
+    "event_type": "FUNDS_CONFIRMED",
+    "aggregate_type": "exit_plan",
+    "aggregate_id": "plan-1",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 2,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "plan_ref": "plan-1",
+      "confirmed_by": "finance-sun",
+      "confirmed_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-3bbafae104d74f7cb7660cb9725463b7",
+    "event_type": "SUCCESSOR_CONFIRMED",
+    "aggregate_type": "exit_plan",
+    "aggregate_id": "plan-1",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 3,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "plan_ref": "plan-1",
+      "successor_ref": "BJ-009",
+      "confirmed_by": "successor-mgr-zhou",
+      "confirmed_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-43886c117e5c46988625b8790241aa19",
+    "event_type": "PLAN_COMPLETED",
+    "aggregate_type": "exit_plan",
+    "aggregate_id": "plan-1",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 4,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "plan_ref": "plan-1",
+      "completed_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-c2992d95c8cc4aedab3a9bce43498c01",
+    "event_type": "SETTLEMENT_PROPOSED",
+    "aggregate_type": "supplier_account",
+    "aggregate_id": "supplier-F",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 3,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "supplier_id": "supplier-F",
+      "settlement_ref": "set-1",
+      "amount": 360.0,
+      "proposed_by": "store-accountant",
+      "proposed_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-0e1951fce04942e093f1fd07032cca19",
+    "event_type": "SETTLEMENT_CONFIRMED",
+    "aggregate_type": "supplier_account",
+    "aggregate_id": "supplier-F",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 4,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "supplier_id": "supplier-F",
+      "settlement_ref": "set-1",
+      "confirmed_by": "supplier-F-contact",
+      "confirmed_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-e8b9ab19b6aa496380629eeda0d65b70",
+    "event_type": "SETTLEMENT_PAID",
+    "aggregate_type": "supplier_account",
+    "aggregate_id": "supplier-F",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 5,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "supplier_id": "supplier-F",
+      "settlement_ref": "set-1",
+      "paid_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-2b7921aed91b472090e20818cdd25fa7",
+    "event_type": "LEASE_TERMINATED",
+    "aggregate_type": "equipment_lease",
+    "aggregate_id": "equip-O1",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 2,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "equipment_ref": "equip-O1",
+      "terminated_at": "2026-09-01T09:00:00+0800",
+      "terminated_by": "ops"
+    }
+  },
+  {
+    "event_id": "evt-b603a3f01b7745e1b8c241f79d4cb08e",
+    "event_type": "EQUIPMENT_REMOVED",
+    "aggregate_type": "equipment_lease",
+    "aggregate_id": "equip-O1",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 3,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "equipment_ref": "equip-O1",
+      "removed_at": "2026-09-01T09:00:00+0800",
+      "witness_by": "manager-li"
+    }
+  },
+  {
+    "event_id": "evt-5b8b4990c1f14d3caa0f68597888cdf6",
+    "event_type": "DEPOSIT_SETTLED",
+    "aggregate_type": "equipment_lease",
+    "aggregate_id": "equip-O1",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 4,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "equipment_ref": "equip-O1",
+      "amount": 2000.0,
+      "settled_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-d31613c4f4fb46e88eb932338cb1c0b1",
+    "event_type": "HANDOVER_ASSIGNED",
+    "aggregate_type": "handover_task",
+    "aggregate_id": "task-1",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 1,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "task_ref": "task-1",
+      "category": "staff",
+      "title": "员工排班与钥匙交接",
+      "owner_role": "shift-leader",
+      "visibility": [
+        "staff",
+        "hq"
+      ],
+      "due_at": "2026-09-06T09:00:00+0800",
+      "assigned_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-5c394dd59d3d42e7a052170a04cfc547",
+    "event_type": "HANDOVER_ACKNOWLEDGED",
+    "aggregate_type": "handover_task",
+    "aggregate_id": "task-1",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 2,
+    "payload": {
+      "task_ref": "task-1",
+      "acknowledged_by": "employee-chen",
+      "acknowledged_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-b47d3e61d3f4456f864741148761e56e",
+    "event_type": "HANDOVER_CLOSED",
+    "aggregate_type": "handover_task",
+    "aggregate_id": "task-1",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 3,
+    "payload": {
+      "task_ref": "task-1",
+      "closed_at": "2026-09-01T09:00:00+0800",
+      "closed_by": "employee-chen"
+    }
+  },
+  {
+    "event_id": "evt-1e49c21a760f4248aaa8360270fd80c5",
+    "event_type": "STAGE_ADVANCED",
+    "aggregate_type": "scheduler",
+    "aggregate_id": "scheduler-case-demo-001",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 6,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "stage": "production_halt",
+      "advanced_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-93eb2fb9832e41d996ae3935bf0de2b8",
+    "event_type": "STAGE_ADVANCED",
+    "aggregate_type": "scheduler",
+    "aggregate_id": "scheduler-case-demo-001",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 7,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "stage": "pickup",
+      "advanced_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-18380e8466664c2a93d93cd8eb2a5000",
+    "event_type": "STAGE_ADVANCED",
+    "aggregate_type": "scheduler",
+    "aggregate_id": "scheduler-case-demo-001",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 8,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "stage": "refund",
+      "advanced_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-172f96b7b6164b8a9a53e63367c547de",
+    "event_type": "STAGE_ADVANCED",
+    "aggregate_type": "scheduler",
+    "aggregate_id": "scheduler-case-demo-001",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 9,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "stage": "lease",
+      "advanced_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "evt-7261f372e4c148f8836dc4540024f8ec",
+    "event_type": "STAGE_ADVANCED",
+    "aggregate_type": "scheduler",
+    "aggregate_id": "scheduler-case-demo-001",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 10,
+    "payload": {
+      "case_ref": "case-demo-001",
+      "stage": "settlement",
+      "advanced_at": "2026-09-01T09:00:00+0800"
+    }
+  },
+  {
+    "event_id": "receipt-demo-001-0",
+    "event_type": "CASE_CLOSED",
+    "aggregate_type": "store_period",
+    "aggregate_id": "case-demo-001",
+    "occurred_at": "2026-09-01T09:00:00+0800",
+    "version": 4,
+    "payload": {
+      "closed_at": "2026-09-01T09:00:00+0800",
+      "closure_ref": "receipt-demo-001",
+      "scope": [
+        "orders",
+        "balances",
+        "batches",
+        "suppliers",
+        "leases",
+        "handovers"
+      ],
+      "successor_ref": "BJ-009",
+      "closed_by": "hq-manager"
+    },
+    "command_id": "receipt-demo-001"
+  }
+]
